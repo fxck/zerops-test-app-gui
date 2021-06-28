@@ -10,11 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2     
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'    
     - name: install, build, deploy  
       env: 
         ZEROPSTOKEN: ${{ secrets.ZEROPSTOKEN }}       
       run: |
-        sudo npm i -g @zerops/zcli
+        npm i -g @zerops/zcli
         npm ci
         npm run build:all
         # download CLI, save as zcli, set permissions
