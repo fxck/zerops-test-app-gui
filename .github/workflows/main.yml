@@ -19,7 +19,7 @@ jobs:
       run: |
         npm i -g @zerops/zcli
         npm ci
-        npm run build:all
+        npm run build:app
         zcli login
-        zcli deploy test gui
+        zcli deploy test gui dist/app/*
 
