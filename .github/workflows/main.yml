@@ -15,7 +15,6 @@ jobs:
       env: 
         ZEROPSTOKEN: ${{ secrets.ZEROPSTOKEN }}       
       run: |
-        npm i -g @zerops/zcli
         npm ci
         npm run build:app
         zcli login
