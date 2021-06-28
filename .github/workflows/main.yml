@@ -10,15 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2     
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'    
     - name: install, build, deploy  
       env: 
-        ZEROPSLOGIN: ${{ secrets.ZEROPSLOGIN }}       
-        ZEROPSPASSWORD: ${{ secrets.ZEROPSPASSWORD }}        
+        ZEROPSTOKEN: ${{ secrets.ZEROPSTOKEN }}       
       run: |
+        npm i -g @zerops/zcli
         npm ci
-        npm run build:all
-        # download CLI, save as zcli, set permissions
-        wget -O zcli https://github.com/zeropsio/zcli/releases/download/v0.16/zcli-linux && chmod +x zcli        
-        ./zcli login
-        ./zcli deploy test-app nodejs0 .
+        npm run build:app
+        zcli login
+        zcli deploy test web dist/app/*
 
